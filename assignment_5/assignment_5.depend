@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1574768035 source:c:\users\simone gulyas\onedrive\dokumentumok\elte\elte-1-programozas\assignment_5\main.cpp
+	<iostream>
+	<cmath>
+	<vector>
+	<algorithm>
+	<iterator>
+
