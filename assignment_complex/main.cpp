@@ -32,7 +32,6 @@ int main()
     cerr << "Adja meg a napok számát(1 és 1000 közötti érték, egyenlőség megengedett) : " << endl;
     cin >> bemenet;
     napok_szama=szam_vizsgalat(bemenet, "napok száma");
-    //cin >> napok_szama;
 
     //Hőmérsékletek megadása és bemenet helyességének vizsgálata
     cerr << "Kérem, adjon meg " << telepules_szama*napok_szama << " db hőmérséklet értéket, amely -50 és 50 közé eső egész szám!" << endl;
