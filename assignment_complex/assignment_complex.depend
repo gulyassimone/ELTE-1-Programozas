@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1577143409 source:c:\users\simone gulyas\onedrive\dokumentumok\elte\elte-1-programozas\assignment_complex\main.cpp
+	<iostream>
+	<sstream>
+	<vector>
+
