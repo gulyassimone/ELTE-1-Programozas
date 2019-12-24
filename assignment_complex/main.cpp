@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#define BIRO
 
 using namespace std;
 
@@ -22,17 +23,24 @@ int main()
     Kimenet kimenet;
     string bemenet;
 
+#ifdef BIRO
+    cin >> telepules_szama;
+#else
     //Városok számának megadása és bemenet helyességének vizsgálata
     cerr << "Adja meg a városok számát(1 és 1000 közötti érték, egyenlőség megengedett) : " << endl;
     cin >> bemenet;
     telepules_szama=szam_vizsgalat(bemenet, "települések száma");
+#endif // BIRO
 
 
+#ifdef BIRO
+    cin >> napok_szama;
+#else
     //Napok számának megadása és bemenet helyességének vizsgálata
     cerr << "Adja meg a napok számát(1 és 1000 közötti érték, egyenlőség megengedett) : " << endl;
     cin >> bemenet;
     napok_szama=szam_vizsgalat(bemenet, "napok száma");
-
+#endif
     //Hőmérsékletek megadása és bemenet helyességének vizsgálata
     cerr << "Kérem, adjon meg " << telepules_szama*napok_szama << " db hőmérséklet értéket, amely -50 és 50 közé eső egész szám!" << endl;
 
@@ -105,10 +113,14 @@ Kimenet homerseklet_csokkenes_vizsgalat(int telepules_szama, int napok_szama)
         elozo_nap_homerseklet=-50;
         for (int j=0; j<napok_szama; j++ )
         {
+            #ifdef BIRO
+            cin >> napi_homerseklet;
+            #else
             cin >> bemenet;
+            napi_homerseklet=szam_vizsgalat(bemenet, "hőmérséklet");
+            #endif
             if(db<7)
             {
-                napi_homerseklet=szam_vizsgalat(bemenet, "hőmérséklet");
                 if(elozo_nap_homerseklet>napi_homerseklet)
                 {
                     db++;
@@ -133,9 +145,9 @@ void kiir(int homerseklet_csokkeno_varosok_osszege, vector<int> homerseklet_csok
 {
     cerr << "7 alkalommal közvetlenül egymás után csökkenő hőmérsékletű városok száma: ";
     cout << homerseklet_csokkeno_varosok_osszege << " ";
+    cerr << "7 alkalommal közvetlenül egymás után csökkenő hőmérsékletű városok felsorolása :";
     for (int i = 0; i<homerseklet_csokkeno_varosok_osszege; i++)
     {
-        cerr << "7 alkalommal közvetlenül egymás után csökkenő hőmérsékletű városok felsorolása :";
         cout << homerseklet_csokkeno_varosok[i] << " ";
     }
 }
