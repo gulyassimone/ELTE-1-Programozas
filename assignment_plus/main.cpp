@@ -3,10 +3,10 @@
 
 using namespace std;
 
-int szomszed_nullazas(int resztvevok_szama, long long szomszed[]);
-int leult_nullazas(int resztvevok_szama, int leult[]);
+void szomszed_nullazas(int resztvevok_szama, long long szomszed[]);
+void leult_nullazas(int resztvevok_szama, int leult[]);
 void kiirVoltSzomszedE(int resztvevok_szama, long long *szomszed);
-bool kiirLeultE(int resztvevok_szama, int *leult);
+void kiirLeultE(int resztvevok_szama, int *leult);
 bool voltSzomszedE(long long szomszed, int uj_szomszed);
 bool leultE(int leult[], int poz, int leulo);
 void kereses(int resztvevok_szama,long long szomszed[], int leult[], int i, int j);
@@ -27,7 +27,7 @@ int main()
         kereses(resztvevok_szama, szomszed, leult, 0,0);
         ulesi_sorrend(resztvevok_szama, szomszed, leult);
         kiirLeultE(resztvevok_szama, leult);
-            kiirVoltSzomszedE(resztvevok_szama, szomszed);
+        kiirVoltSzomszedE(resztvevok_szama, szomszed);
         i++;
     }
     kiirVoltSzomszedE(resztvevok_szama, szomszed);
@@ -64,14 +64,14 @@ void kereses(int resztvevok_szama,long long szomszed[], int leult[],int i,int j)
     }
 }
 
-int szomszed_nullazas(int resztvevok_szama, long long szomszed[])
+void szomszed_nullazas(int resztvevok_szama, long long szomszed[])
 {
     for(int i=0; i<resztvevok_szama; i++)
     {
         szomszed[i]=pow(2,i);
     }
 }
-int leult_nullazas(int resztvevok_szama, int leult[])
+void leult_nullazas(int resztvevok_szama, int leult[])
 {
     for(int i=0; i<resztvevok_szama; i++)
     {
@@ -129,7 +129,7 @@ void kiirVoltSzomszedE(int resztvevok_szama, long long *szomszed)
     cout << endl;
 }
 
-bool kiirLeultE(int resztvevok_szama, int *leult)
+void kiirLeultE(int resztvevok_szama, int *leult)
 {
     for(int i=0; i<resztvevok_szama; i++)
     {
