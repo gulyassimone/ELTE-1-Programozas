@@ -19,10 +19,17 @@ int main()
     long long szomszed[resztvevok_szama];
     int leult[resztvevok_szama];
     szomszed_nullazas(resztvevok_szama, szomszed);
-
-    kiirVoltSzomszedE(resztvevok_szama, szomszed);
-    kereses(resztvevok_szama, szomszed, leult, 0,0);
-    ulesi_sorrend(resztvevok_szama, szomszed, leult);
+    int i=0;
+    while(i<resztvevok_szama/2)
+    {
+        cout<< "i erteke "<< i<< endl;
+        leult_nullazas(resztvevok_szama, leult);
+        kereses(resztvevok_szama, szomszed, leult, 0,0);
+        ulesi_sorrend(resztvevok_szama, szomszed, leult);
+        kiirLeultE(resztvevok_szama, leult);
+            kiirVoltSzomszedE(resztvevok_szama, szomszed);
+        i++;
+    }
     kiirVoltSzomszedE(resztvevok_szama, szomszed);
     kiirLeultE(resztvevok_szama, leult);
 
@@ -42,13 +49,14 @@ void kereses(int resztvevok_szama,long long szomszed[], int leult[],int i,int j)
                 {
                     leult[i]=j;
                     j=resztvevok_szama;
+                    cout << "probalkozas " << endl;
+                    kiirLeultE(resztvevok_szama, leult);
                 }
             }
             j++;
         }
         if(leult[i]==-1)
         {
-            cout << "i-1 " << i-1 << "szomszed " << leult[i-1]+1 << endl;
             kereses(resztvevok_szama, szomszed, leult, i-1, leult[i-1]+1);
         }
         j=0;
@@ -85,11 +93,9 @@ bool voltSzomszedE(long long szomszed, int uj_szomszed)
                 voltSzomszed=true;
             }
         }
-        cout << seged_szomszed << " SEGED I: " << rownum << " ";
         seged_szomszed=seged_szomszed/2;
         rownum++;
     }
-    cout << endl;
     return voltSzomszed;
 }
 
@@ -98,7 +104,6 @@ bool leultE(int leult[], int poz, int leulo)
     bool mar_leult_e=false;
     for(int i=0; i<=poz; i++)
     {
-        cout << leulo << " leulo  leult" << leult[i] << endl;
         if(leulo==leult[i])
         {
             mar_leult_e=true;
