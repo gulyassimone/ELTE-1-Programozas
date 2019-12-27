@@ -1,7 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#define BIRO
+//#define BIRO
 
 using namespace std;
 
@@ -121,7 +121,8 @@ Kimenet homerseklet_csokkenes_vizsgalat(int telepules_szama, int napok_szama)
             #endif
             if(db<7)
             {
-                if(elozo_nap_homerseklet>napi_homerseklet)
+                bool csokkenE=elozo_nap_homerseklet>napi_homerseklet;
+                if(csokkenE)
                 {
                     db++;
                 }
