@@ -146,10 +146,10 @@ Kimenet HomersekletCsokkenesVizsgalat(int N, int M)
 void Kiir(Kimenet kimenet)
 {
     cerr << "7 alkalommal közvetlenül egymás után csökkenő hőmérsékletű városok száma es felsorolása: " << endl;
-    cout << T << " ";
-    for (int i = 0; i<T; i++)
+    cout << kimenet.T << " ";
+    for (int i = 0; i<kimenet.T; i++)
     {
-        cout << homerseklet_csokkeno_varosok[i] << " ";
+        cout << kimenet.homerseklet_csokkeno_varosok[i] << " ";
     }
 }
 
