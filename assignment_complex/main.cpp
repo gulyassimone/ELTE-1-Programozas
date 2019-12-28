@@ -1,56 +1,56 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+
+#define MaxNM 1000
+#define MinNM 1
+#define MaxH 50
+#define MinH -50
 //#define BIRO
 
 using namespace std;
 
 struct Kimenet
 {
-    int homerseklet_csokkeno_varosok_osszege;
+    int T;
     vector<int> homerseklet_csokkeno_varosok;
 };
-int szam_vizsgalat(string u, string kapcsolo);
-bool ertekkeszlet_vizsgalat(int bemenet, string kapcsolo);
-Kimenet homerseklet_csokkenes_vizsgalat(int telepules_szama, int napok_szama);
-void kiir(int homerseklet_csokkeno_varosok_osszege, vector<int> homerseklet_csokkeno_varosok);
-
+int SzamVizsgalat(string u, string kapcsolo);
+bool ErtekkeszletVizsgalat(int bemenet, string kapcsolo);
+Kimenet HomersekletCsokkenesVizsgalat(int N, int M);
+void Kiir(Kimenet kimenet);
 
 int main()
 {
     //Deklaráció
-    int telepules_szama, napok_szama;
-    Kimenet kimenet;
+    int N, M;
     string bemenet;
-
-#ifdef BIRO
-    cin >> telepules_szama;
-#else
-    //Városok számának megadása és bemenet helyességének vizsgálata
     cerr << "Adja meg a városok számát(1 és 1000 közötti érték, egyenlőség megengedett) : " << endl;
-    cin >> bemenet;
-    telepules_szama=szam_vizsgalat(bemenet, "települések száma");
+    #ifdef BIRO
+        cin >> N;
+#else
+        //Városok számának megadása és bemenet helyességének vizsgálata
+        cin >> bemenet;
+        N=SzamVizsgalat(bemenet, "települések száma");
+#endif // BIRO
+    cerr << "Adja meg a napok számát(1 és 1000 közötti érték, egyenlőség megengedett) : " << endl;
+    #ifdef BIRO
+        cin >> M;
+#else
+        //Városok számának megadása és bemenet helyességének vizsgálata
+        cin >> bemenet;
+        M=SzamVizsgalat(bemenet, "napok száma");
 #endif // BIRO
 
-
-#ifdef BIRO
-    cin >> napok_szama;
-#else
-    //Napok számának megadása és bemenet helyességének vizsgálata
-    cerr << "Adja meg a napok számát(1 és 1000 közötti érték, egyenlőség megengedett) : " << endl;
-    cin >> bemenet;
-    napok_szama=szam_vizsgalat(bemenet, "napok száma");
-#endif
-    //Hőmérsékletek megadása és bemenet helyességének vizsgálata
-    cerr << "Kérem, adjon meg " << telepules_szama*napok_szama << " db hőmérséklet értéket, amely -50 és 50 közé eső egész szám!" << endl;
-
-    kimenet=homerseklet_csokkenes_vizsgalat(telepules_szama, napok_szama);
-    kiir(kimenet.homerseklet_csokkeno_varosok_osszege, kimenet.homerseklet_csokkeno_varosok);
+    Kimenet kimenet;
+    cerr << "Kérem, adjon meg " << N*M << " db hőmérséklet értéket, amely -50 és 50 közé eső egész szám!" << endl;
+    kimenet=HomersekletCsokkenesVizsgalat(N, M);
+    Kiir(kimenet);
 
     return 0;
 }
 
-int szam_vizsgalat(string bemenet, string kapcsolo)
+int SzamVizsgalat(string bemenet, string kapcsolo)
 {
     int szam;
     stringstream sstr;
@@ -59,7 +59,7 @@ int szam_vizsgalat(string bemenet, string kapcsolo)
 
     sstr << bemenet;
     sstr >> szam;
-    while(sstr.fail() || !sstr.eof() || !ertekkeszlet_vizsgalat(szam, kapcsolo))
+    while(sstr.fail() || !sstr.eof() || !ErtekkeszletVizsgalat(szam, kapcsolo))
     {
         if(sstr.fail() || !sstr.eof())
         {
@@ -74,13 +74,13 @@ int szam_vizsgalat(string bemenet, string kapcsolo)
     }
     return szam;
 }
-bool ertekkeszlet_vizsgalat(int bemenet, string kapcsolo)
+bool ErtekkeszletVizsgalat(int bemenet, string kapcsolo)
 {
 
     bool megfelelosseg=true;
     if(kapcsolo.compare("települések száma")==0 || kapcsolo.compare("napok száma")==0 )
     {
-        if(1>bemenet || 1000<bemenet)
+        if(MinNM>bemenet || MaxNM<bemenet)
         {
             cerr << "A bemenet nem 1 és 1000 közötti egész szám. Kérlek add meg újra!" << endl;
             megfelelosseg=false;
@@ -88,7 +88,7 @@ bool ertekkeszlet_vizsgalat(int bemenet, string kapcsolo)
     }
     else if(kapcsolo.compare("hőmérséklet")==0)
     {
-        if(-50>bemenet || 50<bemenet)
+        if(MinH>bemenet || MaxH<bemenet)
         {
             cerr << "A bemenet nem -50 és 50 közötti egész szám. Kérlek add meg újra!" << endl;
             megfelelosseg=false;
@@ -101,27 +101,28 @@ bool ertekkeszlet_vizsgalat(int bemenet, string kapcsolo)
     return megfelelosseg;
 }
 
-Kimenet homerseklet_csokkenes_vizsgalat(int telepules_szama, int napok_szama)
+Kimenet HomersekletCsokkenesVizsgalat(int N, int M)
 {
     Kimenet kimenet;
-    kimenet.homerseklet_csokkeno_varosok_osszege=0;
-    int elozo_nap_homerseklet, napi_homerseklet;
+    kimenet.T=0;
+    int He, Hu;
     string bemenet;
-    for(int i=0; i<telepules_szama ; i++)
+    for(int i=0; i<N ; i++)
     {
         int db=0;
-        elozo_nap_homerseklet=-50;
-        for (int j=0; j<napok_szama; j++ )
+        Hu=50;
+        for (int j=0; j<M; j++ )
         {
             #ifdef BIRO
-            cin >> napi_homerseklet;
-            #else
-            cin >> bemenet;
-            napi_homerseklet=szam_vizsgalat(bemenet, "hőmérséklet");
-            #endif
+        cin >> Hu;
+#else
+        //Városok számának megadása és bemenet helyességének vizsgálata
+        cin >> bemenet;
+        Hu=SzamVizsgalat(bemenet, "hőmérséklet");
+#endif // BIRO
             if(db<7)
             {
-                bool csokkenE=elozo_nap_homerseklet>napi_homerseklet;
+                bool csokkenE=He>Hu;
                 if(csokkenE)
                 {
                     db++;
@@ -133,21 +134,20 @@ Kimenet homerseklet_csokkenes_vizsgalat(int telepules_szama, int napok_szama)
                 if(db==7)
                 {
                     kimenet.homerseklet_csokkeno_varosok.push_back(i+1);
-                    kimenet.homerseklet_csokkeno_varosok_osszege++;
+                    kimenet.T++;
                 }
-                elozo_nap_homerseklet=napi_homerseklet;
+                He=Hu;
             }
         }
     }
     return kimenet;
 }
 
-void kiir(int homerseklet_csokkeno_varosok_osszege, vector<int> homerseklet_csokkeno_varosok)
+void Kiir(Kimenet kimenet)
 {
-    cerr << "7 alkalommal közvetlenül egymás után csökkenő hőmérsékletű városok száma: ";
-    cout << homerseklet_csokkeno_varosok_osszege << " ";
-    cerr << "7 alkalommal közvetlenül egymás után csökkenő hőmérsékletű városok felsorolása :";
-    for (int i = 0; i<homerseklet_csokkeno_varosok_osszege; i++)
+    cerr << "7 alkalommal közvetlenül egymás után csökkenő hőmérsékletű városok száma es felsorolása: " << endl;
+    cout << T << " ";
+    for (int i = 0; i<T; i++)
     {
         cout << homerseklet_csokkeno_varosok[i] << " ";
     }
