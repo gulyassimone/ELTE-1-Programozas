@@ -1,3 +1,10 @@
+/*
+  Készítette: Gulyás Simone
+  Neptun: H2E9AQ
+  E-mail: h2e9aq@inf.elte.hu
+  Feladat: „Programozás beadandó feladatok” téma „Sokáig hidegebbé váló települések” feladat
+*/
+
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -110,7 +117,7 @@ Kimenet HomersekletCsokkenesVizsgalat(int N, int M)
     for(int i=0; i<N ; i++)
     {
         int db=0;
-        Hu=50;
+        He=-50;
         for (int j=0; j<M; j++ )
         {
             #ifdef BIRO
