@@ -5,16 +5,16 @@ using namespace std;
 
 int main()
 {
-    vector <int> vektor;
+    vector<int> vektor;
     int number, valami;
 
     cin >> number;
-    for(int i=1; i<=number; i++)
+    for(int i=0; i<number; i++)
     {
         cin >> valami;
-        vektor.push_back(number);
+        vektor.push_back(valami);
     }
-    for(int i=1; i<=number; i++)
+    for(int i=0; i<vektor.size(); i++)
     {
         cout << vektor[i];
     }
